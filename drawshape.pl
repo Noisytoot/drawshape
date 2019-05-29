@@ -6,13 +6,12 @@ use feature 'say';
 
 sub printBorderH {
     my ($size, $fh, $b) = @_;
-    say "$b";
     for (my $i=0; $i < $b; $i++) {
-	print $fh "0";
-	for (my $i=0; $i < $size - 2; $i++) {
-	    print $fh " 1";
-	}
-	print $fh " 0\n";
+        print $fh "0";
+        for (my $i=0; $i < $size - 2; $i++) {
+            print $fh " 1";
+        }
+        say $fh " 0";
     }
 }
 
@@ -36,19 +35,19 @@ if ($#ARGV == -1) {
 } elsif ($#ARGV > 0) {
     my ($size, $filename) = @ARGV;
     if ($size < 10) {
-	say "Size must be more than 10";
-	exit 1;
+        say "Size must be more than 10";
+        exit 1;
     }
     my $b = ceil($size / 10);
     open(my $fh, '>', $filename) or die "Could not open file '$filename' $!";
     # Prints the PBM header
-    print $fh "P1\n$size $size\n";
+    say $fh "P1\n$size $size";
     
     # Prints the first line of 0s
     for (my $i=0; $i < $size - 1; $i++) {
         print $fh "0 ";
     }
-    print $fh "0\n";
+    say $fh "0";
     
     printBorderH($size, $fh, $b);
     
@@ -58,7 +57,7 @@ if ($#ARGV == -1) {
         for (my $i=0; $i < $size - ($b * 2) - 2; $i++) {
             print $fh "0 ";
         }
-        print $fh borderV($b) . "0" . "\n";
+        say $fh borderV($b) . "0";
     }
     
     printBorderH($size, $fh, $b);
@@ -67,6 +66,6 @@ if ($#ARGV == -1) {
     for (my $i=0; $i < $size - 1; $i++) {
         print $fh "0 ";
     }
-    print $fh "0\n";
+    say $fh "0";
     close $fh;
 }

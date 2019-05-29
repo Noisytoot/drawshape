@@ -1,3 +1,5 @@
 # Ignore emacs backup and auto-save files
 *~
 \#*\#
+# Ignore PBM files
+*.pbm
